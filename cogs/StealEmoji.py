@@ -46,4 +46,4 @@ class StealEmoji(commands.Cog):
         raise error
 
 def setup(bot):
-    bot.add_cog(StealeEmoji(bot))
+    bot.add_cog(StealEmoji(bot))
