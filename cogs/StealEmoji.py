@@ -1,5 +1,6 @@
 from discord.ext import commands
 import requests
+import re
 import discord
 
 class StealEmoji(commands.Cog):
