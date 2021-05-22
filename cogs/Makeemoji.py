@@ -27,7 +27,10 @@ class Makeemoji(commands.Cog):
         except discord.InvalidArgument:
             await ctx.send("You must attach an **image** or a **gif** for the emoji, not a different type of the file.")
             return
-        await ctx.send(f"Emoji <:{emoji.name}:{emoji.id}> was created!")
+        if emoji.animated:
+            await ctx.send(f"Emoji <a:{emoji.name}:{emoji.id}> was created!")
+        elif not emoji.animated:
+            await ctx.send(f"Emoji <:{emoji.name}:{emoji.id}> was created!")
 
     @makeemoji.error
     async def makeemoji_error(self, ctx, error):
