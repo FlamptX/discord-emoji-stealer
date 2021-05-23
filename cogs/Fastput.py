@@ -6,20 +6,8 @@ import re
 class Fastput(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-
-    @commands.command()
-    async def fastput(self, ctx):
-      await ctx.send("quick emoji mode is activated, emojis you send this message will added to server quickly, type 'stop' to exit")
-      cancelled=False
-      def check(message):
-        return message.author.id == ctx.author.id and message.channel.id == ctx.channel.id
-      while not cancelled:
-          msg = await self.bot.wait_for('message', check=check)
-          if msg.content == "stop":
-            await ctx.reply("Finished")
-            canceled = True
-            break
-          try:
+    async def emo(ctx, msg):
+      try:
               if "<:" in msg.content or "<a:" in msg.content:
                 pattern = "<(.*?)>"
                 content_emoji = re.search(pattern, msg.content).group(1)
@@ -58,8 +46,21 @@ class Fastput(commands.Cog):
                       await ctx.send("I can't add emoji to the server, may the emoji slot be full?")
               else:
                await ctx.reply("I couldn't find emoji in this message, maybe you wanted to exit? type `stop` to exit.")
-          except:
+      except:
               ctx.send('an unexpected error occurred')
-
+    @commands.command()
+    async def fastput(self, ctx):
+      await ctx.send("quick emoji mode is activated, emojis you send this message will added to server quickly, type 'stop' to exit")
+      cancelled=False
+      def check(message):
+        return message.author.id == ctx.author.id and message.channel.id == ctx.channel.id
+      while not cancelled:
+          msg = await self.bot.wait_for('message', check=check)
+          if msg.content == "stop":
+            await ctx.reply("Finished")
+            canceled = True
+            break
+          await emo(ctx, msg)
+          
 def setup(bot):
     bot.add_cog(Fastput(bot))
