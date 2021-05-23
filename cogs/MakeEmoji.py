@@ -2,7 +2,7 @@ from discord.ext import commands
 import aiohttp
 import discord
 
-class Makeemoji(commands.Cog):
+class MakeEmoji(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -41,4 +41,4 @@ class Makeemoji(commands.Cog):
         raise error
 
 def setup(bot):
-    bot.add_cog(Makeemoji(bot))
+    bot.add_cog(MakeEmoji(bot))
