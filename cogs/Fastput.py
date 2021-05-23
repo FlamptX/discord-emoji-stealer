@@ -50,8 +50,8 @@ class Fastput(commands.Cog):
                       await ctx.send("I can't add emoji to the server, may the emoji slot be full?")
               else:
                await ctx.reply("I couldn't find emoji in this message, maybe you wanted to exit? type `stop` to exit.")
-     except Exception as e:
-            await  ctx.send('an unexpected error occurred')
+      except Exception as e:
+            await ctx.send('an unexpected error occurred')
             print(e)
     @commands.command()
     async def fastput(self, ctx):
