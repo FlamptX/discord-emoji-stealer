@@ -32,11 +32,11 @@ class StealEmoji(commands.Cog):
                 emoji_id = content_emoji.split(":")[2]
                 async with aiohttp.ClientSession() as session:
                  async with session.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.png", allow_redirects=True) as resp:
-                  file_request = await resp.read()
+                  r = await resp.read()
                 if r.content == b'':
                     async with aiohttp.ClientSession() as session:
                      async with session.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.jpg", allow_redirects=True) as resp:
-                      file_request = await resp.read()
+                      r = await resp.read()
                     if r.content == b'':
                         await ctx.send("Could't find the url for that emoji.")
                         return
