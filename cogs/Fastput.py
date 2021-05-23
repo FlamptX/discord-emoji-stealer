@@ -15,7 +15,6 @@ class Fastput(commands.Cog):
                 if content_emoji.startswith("a:"):
                     content_emoji = content_emoji.replace("a:", "")
                     emoji_id = content_emoji.split(":")[1]
-                    async with aiohttp.ClientSession() as session:
                     r=requests.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.gif").content
                     if r == b'':
                         await ctx.send("Couldn't find the url for that emoji.")
@@ -30,9 +29,8 @@ class Fastput(commands.Cog):
                     emoji_id = content_emoji.split(":")[2]
                     r=requests.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.png").content
                     if r == b'':
-                        async with aiohttp.ClientSession() as session:
-                         async with session.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.jpg", allow_redirects=True) as resp:
-                           r = await resp.read()
+                        r=requests.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.jpg").content
+                        
                         if r == b'':
                             await ctx.send("Couldn't find the url for that emoji.")
                             return
