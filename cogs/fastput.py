@@ -61,4 +61,4 @@ class Fastput(commands.Cog):
               ctx.send('an unexpected error occurred')
 
 def setup(bot):
-    bot.add_cog(Makeemoji(bot))
+    bot.add_cog(Fastput(bot))
