@@ -3,11 +3,14 @@ import aiohttp
 import discord
 import re
 import multiprocessing
+import asyncio
 
 class Fastput(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-    def emo(ctx, msg):
+    def bridge(ctx, msg):
+      asyncio.run(emo(ctx, msg))
+    async def emo(ctx, msg):
       try:
               if "<:" in msg.content or "<a:" in msg.content:
                 pattern = "<(.*?)>"
@@ -61,7 +64,7 @@ class Fastput(commands.Cog):
             await ctx.reply("Finished")
             canceled = True
             break
-          multiprocessing.Process(target=Fastput.emo, args=(ctx, msg)).start()
+          multiprocessing.Process(target=Fastput.bridge, args=(ctx, msg)).start()
           
 def setup(bot):
     bot.add_cog(Fastput(bot))
