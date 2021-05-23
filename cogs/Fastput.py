@@ -1,6 +1,7 @@
 from discord.ext import commands
 import aiohttp
 import discord
+import re
 
 class Fastput(commands.Cog):
     def __init__(self, bot):
