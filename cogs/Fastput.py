@@ -9,7 +9,7 @@ class Fastput(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     def bridge(ctx, msg):
-      asyncio.run(emo(ctx, msg))
+      asyncio.run(Fastput.emo(ctx, msg))
     async def emo(ctx, msg):
       try:
               if "<:" in msg.content or "<a:" in msg.content:
