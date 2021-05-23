@@ -57,7 +57,7 @@ class Fastput(commands.Cog):
                     except:
                       await ctx.send("I can't add emoji to the server, may the emoji slot be full?")
               else:
-               await ctx.reply("Geçersiz mesaj, emoji bulunamadı. Seri işlemden çıkmak için sg yazın")
+               await ctx.reply("I couldn't find emoji in this message, maybe you wanted to exit? type `stop` to exit."n
           except:
               ctx.send('an unexpected error occurred')
 
