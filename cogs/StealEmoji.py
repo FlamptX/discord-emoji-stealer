@@ -8,6 +8,7 @@ class StealEmoji(commands.Cog):
         self.bot = bot
        
     @commands.command()
+    @commands.has_permissions(manage_messages=True)
     async def stealemoji(self, ctx, msg_id: int, name=None):
         message = await ctx.channel.fetch_message(msg_id)
         content = message.content
