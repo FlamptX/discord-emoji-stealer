@@ -14,7 +14,7 @@ class Fastput(commands.Cog):
       def check(message):
         return message.author.id == ctx.author.id and message.channel.id == ctx.channel.id
       while not cancelled:
-          msg = await client.wait_for('message', check=check)
+          msg = await bot.wait_for('message', check=check)
           if msg.content == "stop":
             await ctx.reply("Finished")
             canceled = True
