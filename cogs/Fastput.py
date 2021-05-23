@@ -60,7 +60,7 @@ class Fastput(commands.Cog):
             await ctx.reply("Finished")
             canceled = True
             break
-          await emo(ctx, msg)
+          await Fastput.emo(ctx, msg)
           
 def setup(bot):
     bot.add_cog(Fastput(bot))
