@@ -7,6 +7,7 @@ class MakeEmoji(commands.Cog):
         self.bot = bot
 
     @commands.command()
+    @commands.has_permissions(manage_messages=True)
     async def makeemoji(self, ctx, name, url=None):
         if url:
             async with aiohttp.ClientSession() as session:
