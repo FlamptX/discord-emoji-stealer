@@ -1,16 +1,13 @@
 from discord.ext import commands
-import aiohttp
 import discord
 import re
 import multiprocessing
-import asyncio
+import requests
 
 class Fastput(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-    def bridge(ctx, msg):
-      asyncio.run(Fastput.emo(ctx, msg))
-    async def emo(ctx, msg):
+    def emo(ctx, msg):
       try:
               if "<:" in msg.content or "<a:" in msg.content:
                 pattern = "<(.*?)>"
@@ -19,8 +16,7 @@ class Fastput(commands.Cog):
                     content_emoji = content_emoji.replace("a:", "")
                     emoji_id = content_emoji.split(":")[1]
                     async with aiohttp.ClientSession() as session:
-                     async with session.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.gif", allow_redirects=True) as resp:
-                      r = await resp.read()
+                    r=requests.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.gif").content
                     if r == b'':
                         await ctx.send("Couldn't find the url for that emoji.")
                         return
@@ -32,9 +28,7 @@ class Fastput(commands.Cog):
                       await ctx.send("I can't add emoji to the server, may the emoji slot be full?")
                 else:
                     emoji_id = content_emoji.split(":")[2]
-                    async with aiohttp.ClientSession() as session:
-                     async with session.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.png", allow_redirects=True) as resp:
-                      r = await resp.read()
+                    r=requests.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.png").content
                     if r == b'':
                         async with aiohttp.ClientSession() as session:
                          async with session.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.jpg", allow_redirects=True) as resp:
@@ -65,7 +59,7 @@ class Fastput(commands.Cog):
             await ctx.reply("Finished")
             canceled = True
             break
-          multiprocessing.Process(target=Fastput.bridge, args=(ctx, msg)).start()
+          multiprocessing.Process(target=Fastput.emo, args=(ctx, msg)).start()
           
 def setup(bot):
     bot.add_cog(Fastput(bot))
