@@ -57,7 +57,7 @@ class Fastput(commands.Cog):
             await ctx.reply("Finished")
             canceled = True
             break
-          await multiprocessing.Process(target=Fastput.emo, args=(ctx, msg)).start()
+          await Fastput.emo(ctx, msg)
           
 def setup(bot):
     bot.add_cog(Fastput(bot))
