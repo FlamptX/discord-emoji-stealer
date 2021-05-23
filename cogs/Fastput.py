@@ -6,7 +6,7 @@ import re
 class Fastput(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-    async def emo(ctx, msg):
+    async def emo(self.bot, ctx, msg):
       try:
               if "<:" in msg.content or "<a:" in msg.content:
                 pattern = "<(.*?)>"
@@ -60,7 +60,7 @@ class Fastput(commands.Cog):
             await ctx.reply("Finished")
             canceled = True
             break
-          await emo(ctx, msg)
+          await emo(self.bot, ctx, msg)
           
 def setup(bot):
     bot.add_cog(Fastput(bot))
