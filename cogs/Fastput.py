@@ -52,7 +52,7 @@ class Fastput(commands.Cog):
             print(e)
     @commands.command()
     async def fastput(self, ctx):
-      await ctx.send("quick emoji mode is activated, emojis you send this message will added to server quickly, type 'stop' to exit")
+      await ctx.send("quick emoji mode is activated, emojis you send after this message will added to server quickly, type 'stop' to exit")
       cancelled=False
       def check(message):
         return message.author.id == ctx.author.id and message.channel.id == ctx.channel.id
