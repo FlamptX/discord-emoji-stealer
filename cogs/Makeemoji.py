@@ -1,5 +1,5 @@
 from discord.ext import commands
-import requests
+import aiohttp
 import discord
 
 class Makeemoji(commands.Cog):
@@ -9,7 +9,9 @@ class Makeemoji(commands.Cog):
     @commands.command()
     async def makeemoji(self, ctx, name, url=None):
         if url:
-            file_request = requests.get(url)
+            async with aiohttp.ClientSession() as session:
+             async with session.get(url, allow_redirects=True) as resp:
+              file_request = await resp.read()
             try:
                 emoji = await ctx.guild.create_custom_emoji(image=file_request.content, name=name)
                 await ctx.send(f"Emoji <:{emoji.name}:{emoji.id}> was created!")
@@ -21,7 +23,9 @@ class Makeemoji(commands.Cog):
         except IndexError:
             await ctx.send("You must attach an image or a gif for the emoji.")
             return
-        file_request = requests.get(attachment_url)
+        async with aiohttp.ClientSession() as session:
+          async with session.get(url, allow_redirects=True) as resp:
+           file_request = await resp.read()
         try:
             emoji = await ctx.guild.create_custom_emoji(image=file_request.content, name=name)
         except discord.InvalidArgument:
