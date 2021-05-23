@@ -1,8 +1,5 @@
 from discord.ext import commands
-
-
 import aiohttp
-
 import discord
 
 class Putemoji(commands.Cog):
