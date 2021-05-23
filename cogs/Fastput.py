@@ -7,7 +7,7 @@ import requests
 class Fastput(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-    async eff emo(ctx, msg):
+    async def emo(ctx, msg):
       try:
               if "<:" in msg.content or "<a:" in msg.content:
                 pattern = "<(.*?)>"
