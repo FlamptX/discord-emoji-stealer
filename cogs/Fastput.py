@@ -2,7 +2,7 @@ from discord.ext import commands
 import discord
 import re
 import multiprocessing
-import requests
+import aiohttp
 
 class Fastput(commands.Cog):
     def __init__(self, bot):
@@ -15,7 +15,9 @@ class Fastput(commands.Cog):
                 if content_emoji.startswith("a:"):
                     content_emoji = content_emoji.replace("a:", "")
                     emoji_id = content_emoji.split(":")[1]
-                    r=requests.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.gif").content
+                    async with aiohttp.ClientSession() as session:
+                     async with session.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.gif", allow_redirects=True) as resp:
+                      r = await resp.read()
                     if r == b'':
                         await ctx.send("Couldn't find the url for that emoji.")
                         return
@@ -27,10 +29,13 @@ class Fastput(commands.Cog):
                       await ctx.send("I can't add emoji to the server, may the emoji slot be full?")
                 else:
                     emoji_id = content_emoji.split(":")[2]
-                    r=requests.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.png").content
+                    async with aiohttp.ClientSession() as session:
+                     async with session.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.png", allow_redirects=True) as resp:
+                      r = await resp.read()
                     if r == b'':
-                        r=requests.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.jpg").content
-                        
+                        async with aiohttp.ClientSession() as session:
+                         async with session.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.jpg", allow_redirects=True) as resp:
+                          r = await resp.read()
                         if r == b'':
                             await ctx.send("Couldn't find the url for that emoji.")
                             return
