@@ -7,7 +7,7 @@ import multiprocessing
 class Fastput(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-    async def emo(ctx, msg):
+    def emo(ctx, msg):
       try:
               if "<:" in msg.content or "<a:" in msg.content:
                 pattern = "<(.*?)>"
