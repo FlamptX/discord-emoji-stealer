@@ -35,7 +35,7 @@ class Fastput(commands.Cog):
                     name = content_emoji.split(":")[0]
                     try:
                       emoji = await ctx.guild.create_custom_emoji(image=r, name=name)
-                      await ctx.send(f"Emoji <a:{emoji.name}:{emoji.id}> başarıyla dızlandı!")
+                      await ctx.send(f"Emoji <a:{emoji.name}:{emoji.id}> was stolen and addded!")
                     except:
                       await ctx.send("I can't add emoji to the server, may the emoji slot be full?")
                 else:
@@ -53,7 +53,7 @@ class Fastput(commands.Cog):
                     name = content_emoji.split(":")[1]
                     try:
                       emoji = await ctx.guild.create_custom_emoji(image=r, name=name)
-                      await ctx.send(f"Emoji <:{emoji.name}:{emoji.id}> başarıyla dızlandı!")
+                      await ctx.send(f"Emoji <:{emoji.name}:{emoji.id}> was stolen and added!")
                     except:
                       await ctx.send("I can't add emoji to the server, may the emoji slot be full?")
               else:
