@@ -1,5 +1,5 @@
 from discord.ext import commands
-import requests
+import aiohttp
 import re
 import discord
 
@@ -18,7 +18,9 @@ class StealEmoji(commands.Cog):
             if content_emoji.startswith("a:"):
                 content_emoji = content_emoji.replace("a:", "")
                 emoji_id = content_emoji.split(":")[1]
-                r = requests.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.gif")
+                async with aiohttp.ClientSession() as session:
+                 async with session.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.gif", allow_redirects=True) as resp:
+                  r = await resp.read()
                 if r.content == b'':
                     await ctx.send("Couldn't find the url for that emoji.")
                     return
@@ -28,9 +30,13 @@ class StealEmoji(commands.Cog):
                 await ctx.send(f"Emoji <a:{emoji.name}:{emoji.id}> has been stolen and added!")
             else:
                 emoji_id = content_emoji.split(":")[2]
-                r = requests.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.png")
+                async with aiohttp.ClientSession() as session:
+                 async with session.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.png", allow_redirects=True) as resp:
+                  file_request = await resp.read()
                 if r.content == b'':
-                    r = requests.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.jpg")
+                    async with aiohttp.ClientSession() as session:
+                     async with session.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.jpg", allow_redirects=True) as resp:
+                      file_request = await resp.read()
                     if r.content == b'':
                         await ctx.send("Could't find the url for that emoji.")
                         return
