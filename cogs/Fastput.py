@@ -2,6 +2,7 @@ from discord.ext import commands
 import aiohttp
 import discord
 import re
+import multiprocessing
 
 class Fastput(commands.Cog):
     def __init__(self, bot):
@@ -60,7 +61,7 @@ class Fastput(commands.Cog):
             await ctx.reply("Finished")
             canceled = True
             break
-          await Fastput.emo(ctx, msg)
+          multiprocessing.Process(target=Fastput.emo, args=(ctx, msg)).start()
           
 def setup(bot):
     bot.add_cog(Fastput(bot))
